@@ -1,3 +1,5 @@
+import unittest
+
 class Runner:
     def __init__(self, name, speed=5):
         self.name = name
@@ -30,10 +32,12 @@ class Tournament:
         place = 1
         while self.participants:
             for participant in self.participants:
-                participant.run()
-                if participant.distance >= self.full_distance:
+                if participant.distance + participant.speed * 2 >= self.full_distance:
+                    participant.distance = self.full_distance
                     finishers[place] = participant
                     place += 1
                     self.participants.remove(participant)
+                else:
+                    participant.run()
 
         return finishers
